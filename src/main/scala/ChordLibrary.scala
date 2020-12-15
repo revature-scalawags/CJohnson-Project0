@@ -16,7 +16,8 @@ object ChordLibrary extends App {
       * @param file CSV file
       */
     def parseArgs(args: Array[String], file: Source): Unit = args(0) match {
-      case "a" => printContents(file)
+      case "-a" => printContents(file)
+      case "-help" => printHelp()
       case _ => invalidInputNotify()
     }
 
@@ -42,6 +43,12 @@ object ChordLibrary extends App {
         val col = line.split(";")
         println(s"${col(0)} \t ${col(1)} \t ${col(2)} ${spacer(col(2))} ${col(3)} ${spacer(col(3))} ${col(4)}")
       }
+    }
+
+
+    /** Prints help */
+    def printHelp(): Unit = {
+      println("Help comming soon")
     }
 
 
