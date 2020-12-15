@@ -48,7 +48,7 @@ object ChordLibrary extends App {
 
     /** Prints help */
     def printHelp(): Unit = {
-      println("Help comming soon")
+      println("Usage: ChordLibrary [--help] <command> [<args>]")
     }
 
 
