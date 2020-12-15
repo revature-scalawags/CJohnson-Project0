@@ -4,14 +4,31 @@ import scala.io.Source
   * 
   */
 object ChordLibrary extends App {
+    if (args.length != 0) {
+      val file = getFile("GuitarChords.csv")
+      parseArgs(args, file)
+    } else invalidInputNotify()
 
-    val file = getFile("GuitarChords.csv")
-    printContents(file)
+
+    /** Parses argument list
+      * 
+      * @param args argument list
+      * @param file CSV file
+      */
+    def parseArgs(args: Array[String], file: Source): Unit = args(0) match {
+      case "a" => printContents(file)
+      case _ => invalidInputNotify()
+    }
+
+
+    /** Notifies the user about invalid input arguments */
+    def invalidInputNotify(): Unit = println("Invalid Input")
+
 
     /** Loads in a file
       *
       * @param fileName The name of the file
-      * @return the io.Source object created from the fileName
+      * @return the scala.io.Source object created from the fileName
       */
     def getFile(fileName: String): Source = Source.fromFile(fileName)
 
