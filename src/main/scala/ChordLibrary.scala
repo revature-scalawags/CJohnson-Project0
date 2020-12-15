@@ -48,7 +48,9 @@ object ChordLibrary extends App {
 
     /** Prints help */
     def printHelp(): Unit = {
-      println("Usage: ChordLibrary [--help] <command> [<args>]")
+      println("\nUsage: ChordLibrary [--help] <command> [<args>]\n")
+      println("This is a list of commands to be used with ChordLibrary:\n")
+      println("\t-a\t\tPrint entire library of chords\n")
     }
 
 
