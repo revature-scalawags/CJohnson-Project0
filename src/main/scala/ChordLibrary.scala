@@ -1,3 +1,5 @@
+import scala.io.Source
+
 /** Simple Guitar Chord Library
   * 
   */
@@ -11,14 +13,14 @@ object ChordLibrary extends App {
       * @param fileName The name of the file
       * @return the io.Source object created from the fileName
       */
-    def getFile(fileName: String): io.Source = io.Source.fromFile(fileName)
+    def getFile(fileName: String): Source = Source.fromFile(fileName)
 
 
     /** Prints the entire contents of a CSV file to the command line
       *
       * @param file The CSV file to be printed
       */
-    def printContents(file: io.Source): Unit = {
+    def printContents(file: Source): Unit = {
       for (line <- file.getLines()) {
         val col = line.split(";")
         println(s"${col(0)} \t ${col(1)} \t ${col(2)} ${spacer(col(2))} ${col(3)} ${spacer(col(3))} ${col(4)}")
