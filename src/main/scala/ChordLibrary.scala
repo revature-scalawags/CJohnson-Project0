@@ -1,24 +1,60 @@
-import scala.io.Source
-import scala.collection.mutable.ArrayBuffer
+import org.mongodb.scala.MongoClient
+// import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
+import scala.concurrent.Await
+import scala.concurrent.duration.{Duration, SECONDS}
+import org.mongodb.scala.bson.codecs.Macros._
+import org.bson.codecs.configuration.CodecRegistries.{fromRegistries, fromProviders}
+import org.mongodb.scala.Observable
+import org.mongodb.scala.MongoCollection
+import org.mongodb.scala.model.Filters.equal
+import model.Chord
+// import dao.ChordDAO
 
-/** Simple Guitar Chord Library
+/** Simple Guitar Chord Library Application
   * 
   */
 object ChordLibrary extends App {
 
+  val codecRegistry = fromRegistries(fromProviders(classOf[Chord]), MongoClient.DEFAULT_CODEC_REGISTRY)
+
+  val client = MongoClient()
+  val db = client.getDatabase("testdb").withCodecRegistry(codecRegistry)
+
+  val coll: MongoCollection[Chord] = db.getCollection("chords")
+  
+  private def getResults[T](obs: Observable[T]): Seq[T] = {
+    Await.result(obs.toFuture(), Duration(10, SECONDS))
+  }
+
+  def getAll: Seq[Chord] = getResults(coll.find())
+
+  def getRoot(root: String): Seq[Chord] = getResults(coll.find(equal("ROOT", root.capitalize)))
+
   if (args.length != 0) {
-    val file = getFile("GuitarChords.csv")
-    parseArgs(args, file)
+    parseArgs(args)
   } else invalidInputNotify()
 
+  // val chordDAO = new ChordDAO(MongoClient())
 
   /** Parses argument list
     * 
     * @param args argument list
     * @param file CSV file
     */
-  def parseArgs(args: Array[String], file: Source): Unit = args(0) match {
-    case "-a" => printContents(file)
+  def parseArgs(args: Array[String]): Unit = args(0) match {
+    case "-a" | "--all" => {
+      val test = getAll
+      Chord.printHeaders()
+      test.foreach(_.printPretty())
+    }
+    case "-r" | "--root" => {
+      if (args.length < 2) println("Enter a Note")
+      else {
+        val test = getRoot(args(1))
+        Chord.printHeaders()
+        test.foreach(_.printPretty)
+      }
+    }
     case "-help" => printHelp()
     case _ => invalidInputNotify()
   }
@@ -28,38 +64,10 @@ object ChordLibrary extends App {
   def invalidInputNotify(): Unit = println("Invalid Input")
 
 
-  /** Loads in a file
-    *
-    * @param fileName The name of the file
-    * @return the scala.io.Source object created from the fileName
-    */
-  def getFile(fileName: String): Source = Source.fromFile(fileName)
-
-
-  /** Prints the entire contents of a CSV file to the command line
-    *
-    * @param file The CSV file to be printed
-    */
-  def printContents(file: Source): Unit = {
-    for (line <- file.getLines()) {
-      val col = line.split(";")
-      println(s"${col(0)} \t ${col(1)} \t ${col(2)} ${spacer(col(2))} ${col(3)} ${spacer(col(3))} ${col(4)}")
-    }
-  }
-
-
   /** Prints help */
   def printHelp(): Unit = {
     println("\nUsage: ChordLibrary [--help] <command> [<args>]\n")
     println("This is a list of commands to be used with ChordLibrary:\n")
     println("\t-a\t\tPrint entire library of chords\n")
   }
-
-
-  /** Used to format the data output
-    *
-    * @param text String cell data from the CSV file
-    * @return A string containing the appropriate number of tab characters
-    */
-  def spacer(text: String): String = if (text.length < 6) "\t\t" else "\t"
 }
