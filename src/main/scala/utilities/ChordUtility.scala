@@ -12,6 +12,10 @@ object ChordUtility {
   def getNoteArray(chord: Chord): Array[String] = chord.NOTE_NAMES.split("-")
 
 
+  /** Returns an array of notes from a NOTES_NAME string */
+  def getNoteArray(notes: String): Array[String] = notes.split("-")
+
+
   /** Returns a Sequence of Chord objects whose notes match the notes contained
     * in the user's argument array.
     * 
@@ -34,5 +38,12 @@ object ChordUtility {
       chordList.foreach(_.printPretty())
       println()
     } else println("\nNo chords match your search\n")
+  }
+
+
+  /** Formats a NOTE_NAMES string */
+  def formatNoteNames(notes: String):String = {
+    val noteArr = getNoteArray(notes)
+    noteArr.map(_.toLowerCase.capitalize).mkString("-")
   }
 }
