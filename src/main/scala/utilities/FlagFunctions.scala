@@ -36,9 +36,9 @@ object FlagFunctions {
     * @param args argument list
     */
   def printByRoot(args: Array[String]): Unit = {
-    if (args.length < 2) println("Enter a Note.\nTry run --help\n")
+    if (args.length < 1) println("\nEnter a Note.\nTry run --help\n")
     else {
-      val chordList = chordDAO.getByRoot(args(1))
+      val chordList = chordDAO.getByRoot(args(0))
       ChordUtility.printChordList(chordList)
     }
   }
