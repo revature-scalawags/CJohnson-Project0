@@ -3,7 +3,6 @@ package dao
 import org.mongodb.scala.model.Filters.{or, equal}
 import org.mongodb.scala.Observable
 import scala.concurrent.Await
-import scala.concurrent.duration.{Duration, SECONDS}
 
 import model.Chord
 import utilities.DBUtility
@@ -12,9 +11,9 @@ import utilities.DBUtility
 /** Inherits values from DBUtility trait and implements functions from ChordDAO trait */
 class ChordDAOImpl extends ChordDAO[Chord] with DBUtility {
 
-
+  
   /** Gathers results from a query, sorts them by id and puts them in a Sequence of Chord objects */
-  def getResults(obs: Observable[Chord]): Seq[Chord] = Await.result(obs.toFuture(), Duration(10, SECONDS)).sortWith(_.getId()<_.getId())
+  def getResults(obs: Observable[Chord]): Seq[Chord] = Await.result(obs.toFuture(), duration).sortWith(_.getId()<_.getId())
   
 
   /** Query returns all Chord objects in the database as a Sequence */
@@ -27,6 +26,6 @@ class ChordDAOImpl extends ChordDAO[Chord] with DBUtility {
 
   /** Inserts Chord object into the database */
   def insert(chord: Chord): Unit = {
-    Await.result(coll.insertOne(chord).toFuture(), Duration(10, SECONDS))
+    Await.result(coll.insertOne(chord).toFuture(), duration)
   }
 }
