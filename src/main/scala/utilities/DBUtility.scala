@@ -7,6 +7,7 @@ import org.mongodb.scala.MongoCollection
 
 import model.Chord
 
+/** Defines values used to connect to MongoDB database */
 trait DBUtility {
   val codecRegistry = fromRegistries(fromProviders(classOf[Chord]), MongoClient.DEFAULT_CODEC_REGISTRY)
   val client = MongoClient()
