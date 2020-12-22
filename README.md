@@ -65,6 +65,6 @@ Adds a new user-defined chord to the library
 >run -i [ROOT type STRUCTURE NOTES FRETS]
 
 Example:
->run --insert A m 1-b3-5 A-C-E 5-7-7-5-5-5
+>run --insert A  m  1-b3-5  A-C-E  5-7-7-5-5-5
 
->run -i F maj 1-3-5 F-A-C x-x-3-2-1-1
+>run -i F  maj  1-3-5  F-A-C  x-x-3-2-1-1
