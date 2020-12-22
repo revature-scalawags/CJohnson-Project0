@@ -37,7 +37,7 @@ Prints the entire chord library to the console
 >run -a
 
 ## Find By Root
-Prints only chords that are built from the root note specified to the console
+Prints only chords that are built from the root note specified
 >run --root [note name]
 
 >run -r [note name]
@@ -46,3 +46,14 @@ Example:
 >run --root C#
 
 >run -r Eb
+
+## Search By Notes
+Prints only chords that contain the notes specified
+>run --search [note1 note2 ...]
+
+>run -s [note1 note2 ...]
+
+Example:
+>run --search A C E
+
+>run -s B D F#

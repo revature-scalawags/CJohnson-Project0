@@ -2,6 +2,7 @@ package utilities
 
 import dao.{ChordDAO, ChordDAOImpl}
 import model.Chord
+import utilities.ChordUtility
 
 
 /** FlagFunctions class exists to instantiate singleton object */
@@ -17,9 +18,15 @@ object FlagFunctions {
   /** Retrieves all Chord objects from database and prints it to standard output */
   def printAll(): Unit = {
     val chordList = chordDAO.getAll
-    Chord.printHeaders()
-    chordList.foreach(_.printPretty())
-    println()
+    ChordUtility.printChordList(chordList)
+  }
+
+
+  /** Retrieves all Chord objects that contain the user-specified notes and prints them to standard output */
+  def searchChords(args: Array[String]): Unit = {
+    val fullList = chordDAO.getAll
+    val chordList = ChordUtility.chordSearch(args, fullList)
+    ChordUtility.printChordList(chordList)
   }
 
 
@@ -28,23 +35,24 @@ object FlagFunctions {
     *
     * @param args argument list
     */
-  def printByRoots(args: Array[String]): Unit = {
+  def printByRoot(args: Array[String]): Unit = {
     if (args.length < 2) println("Enter a Note.\nTry run --help\n")
     else {
       val chordList = chordDAO.getByRoot(args(1))
-      Chord.printHeaders()
-      chordList.foreach(_.printPretty())
-      println()
+      ChordUtility.printChordList(chordList)
     }
   }
+
 
   /** Prints help */
   def printHelp(): Unit = {
     println("\nUsage: run [--help] <command> [<args>]\n")
     println("This is a list of commands to be used with ChordLibrary:\n")
-    println("\t--all\t\t\tPrint entire library of chords\n")
-    println("\t--root <note name>\tPrint list of chords built from root\n")
+    println("\t--all\t\t\t\tPrint entire library of chords\n")
+    println("\t--root <note name>\t\tPrint list of chords built from root\n")
+    println("\t--search [note1 note2 ...]\tPrint list of chords that contain specific notes\n")
   }
+
 
   /** Notifies the user about invalid input arguments */
   def invalidInputNotify(): Unit = println("\nInvalid Input.\nTry run --help\n")

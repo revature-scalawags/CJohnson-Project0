@@ -16,11 +16,14 @@ case class Chord (
 	/** Returns Chord objects id, parsed to an Integer value */
 	def getId(): Int = Integer.parseInt(_id)
 
+
 	/** Prints a Chord in CSV format to the standard output */
 	def printCSVFormat(): Unit = println(toCSVFormat())
 
+
 	/** Returns a string representing the Chord object in CSV format */
 	def toCSVFormat(): String = s"$ROOT,$TYPE,$STRUCTURE,$NOTE_NAMES,$FRET_POSITIONS"
+
 
 	/** Formats and prints a Chord object to standard output */
 	def printPretty(): Unit = {
@@ -35,6 +38,7 @@ case class Chord (
     */
 	def spacer(text: String): String = if (text.length < 6) "\t\t" else "\t"
 }
+
 
 /** Companion object to Chord class */
 object Chord {
