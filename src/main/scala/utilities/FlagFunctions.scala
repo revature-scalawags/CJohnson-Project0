@@ -54,7 +54,7 @@ object FlagFunctions {
         args(0).toLowerCase.capitalize,       // ROOT
         args(1).toLowerCase,                  // TYPE
         args(2).toLowerCase,                  // STRUCTURE
-        args(3).toLowerCase.capitalize,       // NOTE_NAMES
+        args(3).toLowerCase,                  // NOTE_NAMES
         args(4).toLowerCase                   // FRET_POSITIONS
       )
 
