@@ -21,14 +21,6 @@ object FlagFunctions {
   }
 
 
-  /** Retrieves all Chord objects that contain the user-specified notes and prints them to standard output */
-  def searchChords(args: Array[String]): Unit = {
-    val fullList = chordDAO.getAll
-    val chordList = ChordUtility.chordSearch(args, fullList)
-    ChordUtility.printChordList(chordList)
-  }
-
-
   /** Creates a Sequence of Chord objects of prints its contents
     * to standard output  
     *
@@ -42,7 +34,15 @@ object FlagFunctions {
     }
   }
 
-  
+
+  /** Retrieves all Chord objects that contain the user-specified notes and prints them to standard output */
+  def searchChords(args: Array[String]): Unit = {
+    val fullList = chordDAO.getAll
+    val chordList = ChordUtility.chordSearch(args, fullList)
+    ChordUtility.printChordList(chordList)
+  }
+
+
   /** Takes user arguments, builds a new Chord object and inserts it into the database. */
   def insertChord(args: Array[String]): Unit = {
     if (args.length < 5) println("\nToo few arguments\n")
@@ -50,12 +50,12 @@ object FlagFunctions {
       val fullList = chordDAO.getAll
       val idOfLast = Integer.parseInt(fullList(fullList.length - 1)._id)
       val chord = Chord(
-        (idOfLast + 1).toString,              // _id
-        args(0).toLowerCase.capitalize,       // ROOT
-        args(1).toLowerCase,                  // TYPE
-        args(2).toLowerCase,                  // STRUCTURE
-        args(3).toLowerCase,                  // NOTE_NAMES
-        args(4).toLowerCase                   // FRET_POSITIONS
+        (idOfLast + 1).toString,                  // _id
+        args(0).toLowerCase.capitalize,           // ROOT
+        args(1).toLowerCase,                      // TYPE
+        args(2).toLowerCase,                      // STRUCTURE
+        ChordUtility.formatNoteNames(args(3)),    // NOTE_NAMES
+        args(4).toLowerCase                       // FRET_POSITIONS
       )
 
       chordDAO.insert(chord)
