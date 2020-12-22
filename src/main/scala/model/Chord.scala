@@ -3,13 +3,15 @@ package model
 import org.bson.types.ObjectId
 
 case class Chord (
-	_id: ObjectId,
+	_id: String,
 	ROOT: String,
 	TYPE: String,
 	STRUCTURE: String,
 	NOTE_NAMES: String,
 	FRET_POSITIONS: String
 ) {
+
+	def getId(): Int = Integer.parseInt(_id)
 
 	def printCSVFormat(): Unit = println(toCSVFormat)
 
@@ -30,6 +32,6 @@ case class Chord (
 
 object Chord {
 		def printHeaders(): Unit = {
-			println("ROOT \t TYPE \t STRUCTURE \t NOTE_NAMES \t FRET_POSITIONS")
+			println("\nROOT \t TYPE \t STRUCTURE \t NOTE_NAMES \t FRET_POSITIONS")
 		}
   }
