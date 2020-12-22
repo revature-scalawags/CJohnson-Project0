@@ -1,8 +1,5 @@
 package model
 
-import org.bson.types.ObjectId
-import scala.languageFeature.existentials
-
 
 /** Defines Chord fields and methods */
 case class Chord (

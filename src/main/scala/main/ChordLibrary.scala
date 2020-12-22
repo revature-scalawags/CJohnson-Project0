@@ -1,7 +1,5 @@
 package main
 
-import dao.{ChordDAO, ChordDAOImpl}
-import model.Chord
 import utilities.FlagFunctions
 
 /** Simple Guitar Chord Library Application */
