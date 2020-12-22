@@ -66,6 +66,23 @@ object FlagFunctions {
   }
 
 
+  /** Matches Chord object to entered FRET_POSITIONS string and removes it from the database */
+  def deleteChord(args: Array[String]): Unit = {
+    if(args.length == 0) println("\nEnter Fret positions to delete chord. Ex: run -d x-3-2-0-1-0\n")
+    else {
+      val chordList = chordDAO.getByFrets(args(0))
+      if (chordList.length == 0) {
+        println("\nThat chord does not exist in the library\n")
+      } else {
+        chordDAO.delete(chordList(0))
+        println("\nChord(s) Deleted:")
+        ChordUtility.printChordList(chordList)
+        println()
+      }
+    }
+  }
+
+
   /** Prints help */
   def printHelp(): Unit = {
     println("\nUsage: run [--help] <command> [<args>]\n")

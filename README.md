@@ -68,3 +68,14 @@ Example:
 >run --insert A  m  1-b3-5  A-C-E  5-7-7-5-5-5
 
 >run -i F  maj  1-3-5  F-A-C  x-x-3-2-1-1
+
+## Remove Existing Chord
+Removes a chord, or multiple chords, that match the specified fret positions
+>run --delete FRETS
+
+>run -d FRETS
+
+Example:
+>run --delete x-3-2-0-1-0
+
+>run -d x-x-0-2-3-2
