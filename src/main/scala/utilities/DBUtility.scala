@@ -7,7 +7,7 @@ import org.mongodb.scala.MongoCollection
 
 import model.Chord
 
-trait DAOUtility {
+trait DBUtility {
   val codecRegistry = fromRegistries(fromProviders(classOf[Chord]), MongoClient.DEFAULT_CODEC_REGISTRY)
   val client = MongoClient()
   val db = client.getDatabase("chordlib").withCodecRegistry(codecRegistry)
