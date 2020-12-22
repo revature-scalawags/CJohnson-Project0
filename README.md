@@ -44,3 +44,5 @@ Prints only chords that are built from the root note specified to the console
 
 Example:
 >run --root C#
+
+>run -r Eb
