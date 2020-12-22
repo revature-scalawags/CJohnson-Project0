@@ -2,7 +2,6 @@ package utilities
 
 import dao.{ChordDAO, ChordDAOImpl}
 import model.Chord
-import utilities.ChordUtility
 
 
 /** FlagFunctions class exists to instantiate singleton object */
