@@ -9,4 +9,6 @@ trait ChordDAO[T] {
   def getAll: Seq[T]
   def getByRoot(root: String): Seq[T]
   def insert(chord: T): Unit
+  def delete(chord: T): Unit
+  def getByFrets(frets: String): Seq[T]
 }

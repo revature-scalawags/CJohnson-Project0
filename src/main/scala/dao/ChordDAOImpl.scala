@@ -1,6 +1,6 @@
 package dao
 
-import org.mongodb.scala.model.Filters.{or, equal}
+import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.Observable
 import scala.concurrent.Await
 
@@ -28,4 +28,12 @@ class ChordDAOImpl extends ChordDAO[Chord] with DBUtility {
   def insert(chord: Chord): Unit = {
     Await.result(coll.insertOne(chord).toFuture(), duration)
   }
+
+  /** Deletes Chord Objects from database that have a matching FRET_POSITIONS string */
+  def delete(chord: Chord): Unit = {
+    Await.result(coll.deleteMany(equal("FRET_POSITIONS", chord.FRET_POSITIONS)).toFuture(), duration)
+  }
+
+  /** Returns a sequence of Chord objects that have a matching FRETPOSITIONS string */
+  def getByFrets(frets: String): Seq[Chord] = getResults(coll.find(equal("FRET_POSITIONS", frets)))
 }
