@@ -44,13 +44,14 @@ object FlagFunctions {
   }
 
   
-  /** Takes user arguments, builds and new Chord object and inserts it into the database. */
+  /** Takes user arguments, builds a new Chord object and inserts it into the database. */
   def insertChord(args: Array[String]): Unit = {
     if (args.length < 5) println("\nToo few arguments\n")
     else {
-      val chordCount = chordDAO.getAll.length
+      val fullList = chordDAO.getAll
+      val idOfLast = Integer.parseInt(fullList(fullList.length - 1)._id)
       val chord = Chord(
-        (chordCount + 1).toString(),          // _id
+        (idOfLast + 1).toString,              // _id
         args(0).toLowerCase.capitalize,       // ROOT
         args(1).toLowerCase,                  // TYPE
         args(2).toLowerCase,                  // STRUCTURE
