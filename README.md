@@ -20,21 +20,28 @@ Run the image
 >SBT 1.4 (https://www.scala-sbt.org/index.html)
 
 # Usage
-While running SBT
+While running SBT:
 
 ## Help
 Opens help menu
+
 >run --help
+
 >run -h
 
 ## Print all
 Prints the entire chord library to the console
+
 >run --all
+
 >run -a
 
 ## Find By Root
 Returns only chords that are built from the root not specified
+
 >run --root <note name>
+
 >run -r <note name>
+
 example:
 >run --root C#
