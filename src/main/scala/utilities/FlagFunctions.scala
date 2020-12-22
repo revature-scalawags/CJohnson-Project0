@@ -33,7 +33,7 @@ object FlagFunctions {
     else {
       val chordList = chordDAO.getByRoot(args(1))
       Chord.printHeaders()
-      chordList.foreach(_.printPretty)
+      chordList.foreach(_.printPretty())
       println()
     }
   }

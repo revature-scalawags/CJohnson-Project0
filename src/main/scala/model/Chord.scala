@@ -17,7 +17,7 @@ case class Chord (
 	def getId(): Int = Integer.parseInt(_id)
 
 	/** Prints a Chord in CSV format to the standard output */
-	def printCSVFormat(): Unit = println(toCSVFormat)
+	def printCSVFormat(): Unit = println(toCSVFormat())
 
 	/** Returns a string representing the Chord object in CSV format */
 	def toCSVFormat(): String = s"$ROOT,$TYPE,$STRUCTURE,$NOTE_NAMES,$FRET_POSITIONS"
