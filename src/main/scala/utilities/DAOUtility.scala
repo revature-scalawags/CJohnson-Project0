@@ -10,6 +10,6 @@ import model.Chord
 trait DAOUtility {
   val codecRegistry = fromRegistries(fromProviders(classOf[Chord]), MongoClient.DEFAULT_CODEC_REGISTRY)
   val client = MongoClient()
-  val db = client.getDatabase("testdb").withCodecRegistry(codecRegistry)
+  val db = client.getDatabase("chordlib").withCodecRegistry(codecRegistry)
   val coll: MongoCollection[Chord] = db.getCollection("chords")
 }

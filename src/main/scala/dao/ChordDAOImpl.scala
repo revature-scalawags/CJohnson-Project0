@@ -10,7 +10,7 @@ import utilities.DAOUtility
 
 class ChordDAOImpl extends ChordDAO[Chord] with DAOUtility {
 
-  def storeResults(obs: Observable[Chord]): Seq[Chord] = Await.result(obs.toFuture(), Duration(10, SECONDS))
-  def getAll: Seq[Chord] = storeResults(coll.find())
-  def getRoot(root: String): Seq[Chord] = storeResults(coll.find(equal("ROOT", root.capitalize)))
+  def getResults(obs: Observable[Chord]): Seq[Chord] = Await.result(obs.toFuture(), Duration(10, SECONDS)).sortWith(_.getId<_.getId())
+  def getAll: Seq[Chord] = getResults(coll.find())
+  def getRoot(root: String): Seq[Chord] = getResults(coll.find(equal("ROOT", root.capitalize)))
 }

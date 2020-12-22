@@ -25,6 +25,7 @@ object ChordLibrary extends App {
       val test = chordDAO.getAll
       Chord.printHeaders()
       test.foreach(_.printPretty())
+      println(test.getClass())
       println()
     }
     case "-r" | "--root" => {
