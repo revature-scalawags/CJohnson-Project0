@@ -16,7 +16,9 @@ Run the image
 
 # Requirements
 >Java JDK version 11 (https://adoptopenjdk.net/)
+
 >Scala 2.12 (https://www.scala-lang.org/download/)
+
 >SBT 1.4 (https://www.scala-sbt.org/index.html)
 
 # Usage
@@ -24,24 +26,21 @@ While running SBT:
 
 ## Help
 Opens help menu
-
 >run --help
 
 >run -h
 
 ## Print all
 Prints the entire chord library to the console
-
 >run --all
 
 >run -a
 
 ## Find By Root
-Returns only chords that are built from the root not specified
+Prints only chords that are built from the root note specified to the console
+>run --root [note name]
 
->run --root <note name>
+>run -r [note name]
 
->run -r <note name>
-
-example:
+Example:
 >run --root C#
