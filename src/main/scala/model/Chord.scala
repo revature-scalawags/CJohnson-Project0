@@ -20,7 +20,7 @@ case class Chord (
 
 
 	/** Returns a string representing the Chord object in CSV format */
-	def toCSVFormat(): String = s"$ROOT,$TYPE,$STRUCTURE,$NOTE_NAMES,$FRET_POSITIONS"
+	def toCSVFormat(): String = s"${_id},$ROOT,$TYPE,$STRUCTURE,$NOTE_NAMES,$FRET_POSITIONS\n"
 
 
 	/** Formats and prints a Chord object to standard output */
@@ -45,4 +45,7 @@ object Chord {
 	def printHeaders(): Unit = {
 		println("\nROOT \t TYPE \t STRUCTURE \t NOTE_NAMES \t FRET_POSITIONS")
 	}
+
+	/** Prints the Chord class's field names to standard output */
+	val csvHeaders = "_id.string(),ROOT.string(),TYPE.string(),STRUCTURE.string(),NOTE_NAMES.string(),FRET_POSITIONS.string()\n"
 }

@@ -79,3 +79,9 @@ Example:
 >run --delete x-3-2-0-1-0
 
 >run -d x-x-0-2-3-2
+
+## Export Library to CSV File
+Exports the contents of the Ghord Library to a .csv file
+>run --export filename.csv
+
+>run -e filename.csv
