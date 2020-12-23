@@ -16,13 +16,17 @@ object IOUtility {
   def writeToCSV(filename: String, chords: Seq[Chord]): Unit = {
     val file = new File(filename)
     val bw = new BufferedWriter(new FileWriter(file))
-
-    bw.write(Chord.csvHeaders)
-    for (i <- 0 until chords.length) {
-      bw.write(chords(i).toCSVFormat())
+    try {
+      bw.write(Chord.csvHeaders)
+      for (i <- 0 until chords.length) {
+        bw.write(chords(i).toCSVFormat())
+      }
+    } catch {
+      case e: IOException => e.printStackTrace()
+    } finally {
+      bw.close()
     }
-    bw.close()
 
-    println("\nLibrary has be exported to " + filename + "\n")
+    println("\nLibrary has been exported to " + filename + "\n")
   }
 }
