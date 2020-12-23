@@ -107,7 +107,10 @@ object FlagFunctions extends LazyLogging {
         IOUtility.writeToCSV(filename, chordList)
       }
 
-    } else println("Enter a file name. Ex: run -w testFile.csv")
+    } else {
+      println("\nEnter a file name.\n\tExample: run -e testFile.csv\n")
+      logger.info("File name not entered")
+    }
     
   }
 
