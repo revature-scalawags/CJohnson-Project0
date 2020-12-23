@@ -1,5 +1,7 @@
 package utilities
 
+import com.typesafe.scalalogging.LazyLogging
+
 import dao.{ChordDAO, ChordDAOImpl}
 import model.Chord
 
@@ -9,7 +11,7 @@ class FlagFunctions {}
 
 
 /** Singleton FlagFunctions object */
-object FlagFunctions {
+object FlagFunctions extends LazyLogging {
 
   val chordDAO: ChordDAO[Chord] = new ChordDAOImpl
 
@@ -27,7 +29,10 @@ object FlagFunctions {
     * @param args argument list
     */
   def printByRoot(args: Array[String]): Unit = {
-    if (args.length < 1) println("\nEnter a Note.\nTry run --help\n")
+    if (args.length < 1) {
+      println("\nEnter a Note.\nTry run --help\n")
+      logger.info("--root: No root specified")
+    }
     else {
       val chordList = chordDAO.getByRoot(args(0))
       ChordUtility.printChordList(chordList)
@@ -45,7 +50,10 @@ object FlagFunctions {
 
   /** Takes user arguments, builds a new Chord object and inserts it into the database. */
   def insertChord(args: Array[String]): Unit = {
-    if (args.length < 5) println("\nToo few arguments\n")
+    if (args.length < 5) {
+      println("\nToo few arguments\n")
+      logger.info("--insert: Not enough arguments entered")
+    }
     else {
       val fullList = chordDAO.getAll
       val idOfLast = Integer.parseInt(fullList(fullList.length - 1)._id)
@@ -68,11 +76,15 @@ object FlagFunctions {
 
   /** Matches Chord object to entered FRET_POSITIONS string and removes it from the database */
   def deleteChord(args: Array[String]): Unit = {
-    if(args.length == 0) println("\nEnter Fret positions to delete chord. Ex: run -d x-3-2-0-1-0\n")
+    if(args.length == 0) {
+      println("\nEnter Fret positions to delete chord. Ex: run -d x-3-2-0-1-0\n")
+      logger.info("--delete: No arguments supplied")
+    }
     else {
       val chordList = chordDAO.getByFrets(args(0))
       if (chordList.length == 0) {
         println("\nThat chord does not exist in the library\n")
+        logger.info("Chord does not exist in library")
       } else {
         chordDAO.delete(chordList(0))
         println("\nChord(s) Deleted:")
@@ -87,9 +99,10 @@ object FlagFunctions {
     if (args.length > 0) {
       val filename = args(0)
 
-      if (!(filename.slice(filename.length - 4, filename.length)).equalsIgnoreCase(".csv"))
+      if (!(filename.slice(filename.length - 4, filename.length)).equalsIgnoreCase(".csv")) {
         println("\nfile name must end with \".csv\"\n")
-      else {
+        logger.info("File name must end with .csv")
+      } else {
         val chordList = chordDAO.getAll
         IOUtility.writeToCSV(filename, chordList)
       }
@@ -113,5 +126,5 @@ object FlagFunctions {
 
 
   /** Notifies the user about invalid input arguments */
-  def invalidInputNotify(): Unit = println("\nInvalid Input.\nTry run --help\n")
+  def invalidInputNotify(): Unit = println("\nInvalid Input.\nTry run --help\n"); logger.info("Invalid input")
 }
