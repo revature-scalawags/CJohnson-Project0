@@ -42,9 +42,7 @@ case class Chord (
 object Chord {
 
 	/** Prints the Chord class's field names to standard output */
-	def printHeaders(): Unit = {
-		println("\nROOT \t TYPE \t STRUCTURE \t NOTE_NAMES \t FRET_POSITIONS")
-	}
+	def printHeaders(): Unit = println("\nROOT \t TYPE \t STRUCTURE \t NOTE_NAMES \t FRET_POSITIONS")
 
 	/** Prints the Chord class's field names to standard output */
 	val csvHeaders = "_id.string(),ROOT.string(),TYPE.string(),STRUCTURE.string(),NOTE_NAMES.string(),FRET_POSITIONS.string()\n"
