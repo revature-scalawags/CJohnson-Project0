@@ -23,6 +23,7 @@ object ChordLibrary extends App {
     case "-s" | "--search" => FlagFunctions.searchChords(args.slice(1, args.length).map(_.toLowerCase.capitalize))
     case "-i" | "--insert" => FlagFunctions.insertChord(args.slice(1, args.length))
     case "-d" | "--delete" => FlagFunctions.deleteChord(args.slice(1, 2).map(_.toLowerCase))
+    case "-e" | "--export" => FlagFunctions.writeToCSV(args.slice(1, 2).map(_.toLowerCase))
     case "-h" | "--help" => FlagFunctions.printHelp()
     case _ => FlagFunctions.invalidInputNotify()
   }

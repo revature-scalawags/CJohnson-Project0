@@ -82,6 +82,22 @@ object FlagFunctions {
     }
   }
 
+  /** Validates user specified file name and saves contents of the database to a .csv file */
+  def writeToCSV(args: Array[String]): Unit = {
+    if (args.length > 0) {
+      val filename = args(0)
+
+      if (!(filename.slice(filename.length - 4, filename.length)).equalsIgnoreCase(".csv"))
+        println("\nfile name must end with \".csv\"\n")
+      else {
+        val chordList = chordDAO.getAll
+        IOUtility.writeToCSV(filename, chordList)
+      }
+
+    } else println("Enter a file name. Ex: run -w testFile.csv")
+    
+  }
+
 
   /** Prints help */
   def printHelp(): Unit = {
@@ -90,7 +106,9 @@ object FlagFunctions {
     println("\t--all\t\t\t\t\t\tPrint entire library of chords\n")
     println("\t--root <note name>\t\t\t\tPrint list of chords built from root\n")
     println("\t--search [note1 note2 ...]\t\t\tPrint list of chords that contain specific notes\n")
-    println("\t--insert [ROOT TYPE STRUCTURE NOTES FRETS]\tInsert new Chord into the library\n")
+    println("\t--insert [ROOT TYPE STRUCTURE NOTES FRETS]\tInsert new chord into the library\n")
+    println("\t--delete <FRETS>\t\t\t\tDelete chords with matching fret positions from the library\n")
+    println("\t--export <filename.csv>\t\t\t\tExport library to .csv file\n")
   }
 
 
