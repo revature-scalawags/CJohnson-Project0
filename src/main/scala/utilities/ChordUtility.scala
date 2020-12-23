@@ -3,7 +3,7 @@ package utilities
 import model.Chord
 
 /** ChordUtility class exists to instantiate singleton object */
-abstract class ChordUtility{}
+class ChordUtility{}
 
 /** Singleton ChordUtility object */
 object ChordUtility {
