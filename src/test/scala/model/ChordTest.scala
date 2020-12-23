@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 
 class ChordTest extends FunSuite {
 
-  val c = Chord.apply("0", "A", "maj", "1-3-5", "A-C#-E", "x-0-2-2-2-0")
+  val c = Chord("0", "A", "maj", "1-3-5", "A-C#-E", "x-0-2-2-2-0")
 
   test("new Chord objects are properly instantiated") {
     assert(c._id == "0")
